@@ -16,6 +16,7 @@ jobs:
     steps:
       - uses: lowlighter/metrics@latest
         with:
+          filename: github-metrics/base.svg
           token: ${{ secrets.METRICS_TOKEN }}
           template: classic
           config_timezone: Asia/Shanghai
