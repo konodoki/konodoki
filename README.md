@@ -49,10 +49,10 @@
 <table width="100%">
   <tr>
     <td valign="top" width="50%">
-      <img src="/github-metrics/stackoverflow.svg" alt="stackoverflow" width="100%" />
+      <img src="/github-metrics/isocalendar.fullyear.svg" alt="isocalendar" width="100%" />
     </td>
     <td valign="top" width="50%">
-      <img src="/github-metrics/isocalendar.fullyear.svg" alt="isocalendar" width="100%" />
+      <img src="/github-metrics/stackoverflow.svg" alt="stackoverflow" width="100%" />
     </td>
   </tr>
 </table>
