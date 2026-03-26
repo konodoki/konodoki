@@ -1,7 +1,7 @@
 <table style="border: none; border-collapse: collapse; overflow: hidden; table-layout: fixed; width: 100%;">
   <tr>
-    <td style="vertical-align: top; width: 50%;">
-      <img src="/github-metrics/base.svg" alt="base" style="width: 100%;" />
+    <td style="vertical-align: top; width: 50%; height: 1px;"> <img src="/github-metrics/base.svg" alt="base" 
+           style="width: 100%; height: 100%; object-fit: cover; display: block;" />
     </td>
     <td style="vertical-align: top; width: 50%;">
       <img src="/github-metrics/languages.indepth.svg" alt="languages" style="width: 100%; display: block; margin-bottom: 10px;" />
