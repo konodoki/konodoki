@@ -9,6 +9,7 @@
     <td valign="top" width="45%">
       <img src="/github-metrics/languages.indepth.svg" alt="languages" width="100%" />
       <img src="/github-metrics/wakatime.svg" alt="wakatime" width="100%" />
+      <img src="/github-metrics/calendar.full.svg" alt="calendar" width="100%" />
     </td>
   </tr>
 </table>
@@ -55,8 +56,3 @@
     </td>
   </tr>
 </table>
-
-<!-- ══════════════════════════════════════════════════════
-     ⑤  Full Calendar  全宽压轴
-══════════════════════════════════════════════════════ -->
-<img src="/github-metrics/calendar.full.svg" alt="calendar" width="100%" />
