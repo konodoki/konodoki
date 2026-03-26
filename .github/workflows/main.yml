@@ -1,64 +1,41 @@
 name: Metrics
 on:
-  # Schedule daily updates
+  # 每天 UTC 00:00 自动运行
   schedule: [{cron: "0 0 * * *"}]
-  # (optional) Run workflow manually1
+  # 手动触发
   workflow_dispatch:
-  # (optional) Run workflow when pushing on master/main
+  # push 到主分支时触发
   push: {branches: ["master", "main"]}
+
 jobs:
   github-metrics:
     runs-on: ubuntu-latest
-    environment: 
+    environment:
       name: METRICS_TOKEN
     permissions:
       contents: write
     steps:
-      - uses: lowlighter/metrics@latest
+
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      # ①  Base — 头部 + 活跃度 + 社区 + 仓库 + 代码行 + 流量
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      - name: Base metrics
+        uses: lowlighter/metrics@latest
         with:
           filename: github-metrics/base.svg
           token: ${{ secrets.METRICS_TOKEN }}
           template: classic
           config_timezone: Asia/Shanghai
           base: "header, activity, community, repositories"
-          # 此插件为文档中的 🧮 Repositories traffic
           plugin_traffic: yes
-          # 此插件为文档中的 👨‍💻 Lines of code changed
           plugin_lines: yes
-          # 此插件为文档中的 🙋 Introduction
           plugin_introduction: yes
-          # 此插件为文档中的 🎫 Gists
           plugin_gists: yes
-          # 此插件为文档中的 💫 Star lists
-          # plugin_starlists: yes
-          # plugin_starlists_limit_repositories: 2
-          # plugin_starlists_languages: yes
-          # plugin_starlists_limit_languages: 8
-          # plugin_starlists_only: Awesome
-     # 📆 Commit calendar
-      - name: Full history calendar
-        uses: lowlighter/metrics@latest
-        with:
-          filename: github-metrics/calendar.full.svg
-          token: ${{ secrets.METRICS_TOKEN }}
-          base: ""
-          plugin_calendar: yes
-          plugin_calendar_limit: 0
 
-      # 📅 Isometric commit calendar
-      - name: Full-year calendar
-        uses: lowlighter/metrics@latest
-        with:
-          filename: github-metrics/isocalendar.fullyear.svg
-          token: ${{ secrets.METRICS_TOKEN }}
-          # 不添加基础信息
-          base: ""
-          # 使用此插件
-          plugin_isocalendar: yes
-          # 设置成显示整年
-          plugin_isocalendar_duration: full-year
-      # 🈷️ Languages activity
-      - name: Indepth analysis
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      # ②  Languages — 语言深度分析
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      - name: Languages indepth
         uses: lowlighter/metrics@latest
         with:
           filename: github-metrics/languages.indepth.svg
@@ -72,8 +49,28 @@ jobs:
           plugin_languages_details: lines, bytes-size
           plugin_languages_limit: 4
           plugin_languages_analysis_timeout: 15
-       # 💡 Coding habits and activity
-      - name: Recent activity charts
+
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      # ③  WakaTime — 编码时长统计（NEW）
+      #     前提：wakatime.com 注册 + IDE 插件 + Secret: WAKATIME_API_KEY
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      - name: WakaTime
+        uses: lowlighter/metrics@latest
+        with:
+          filename: github-metrics/wakatime.svg
+          token: NOT_NEEDED
+          base: ""
+          plugin_wakatime: yes
+          plugin_wakatime_token: ${{ secrets.WAKATIME_API_KEY }}
+          plugin_wakatime_sections: time, projects, languages, editors, os
+          plugin_wakatime_days: 30
+          plugin_wakatime_limit: 5
+          plugin_wakatime_url: https://wakatime.com
+
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      # ④  Habits — 编码习惯图表（NEW）
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      - name: Coding habits charts
         uses: lowlighter/metrics@latest
         with:
           filename: github-metrics/habits.charts.svg
@@ -82,8 +79,14 @@ jobs:
           plugin_habits: yes
           plugin_habits_facts: no
           plugin_habits_charts: yes
-          config_timezone: Europe/Paris
-        # 📰 Recent activity
+          plugin_habits_trim: yes
+          plugin_habits_days: 14
+          plugin_habits_from: 200
+          config_timezone: Asia/Shanghai
+
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      # ⑤  Activity — 近期动态（NEW）
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
       - name: Recent activity
         uses: lowlighter/metrics@latest
         with:
@@ -94,25 +97,57 @@ jobs:
           plugin_activity_limit: 5
           plugin_activity_days: 0
           plugin_activity_filter: issue, pr, release, fork, review, ref/create
+          plugin_activity_visibility: all
 
-      # 🗨️ Stack Overflow
-      - name: Top answers from stackoverflow
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      # ⑥  Achievements — 成就徽章（NEW）
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      - name: Achievements
+        uses: lowlighter/metrics@latest
+        with:
+          filename: github-metrics/achievements.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_achievements: yes
+          plugin_achievements_threshold: B
+          plugin_achievements_secrets: yes
+          plugin_achievements_display: compact
+          plugin_achievements_limit: 0
+
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      # ⑦  Stack Overflow — 精选回答
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      - name: Stack Overflow top answers
         uses: lowlighter/metrics@latest
         with:
           filename: github-metrics/stackoverflow.svg
           token: NOT_NEEDED
           base: ""
           plugin_stackoverflow: yes
-          plugin_stackoverflow_user: 1
+          plugin_stackoverflow_user: 32545622
           plugin_stackoverflow_sections: answers-top
           plugin_stackoverflow_limit: 2
-            # ⏰ WakaTime
-      - name: WakaTime
+
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      # ⑧  Isometric Calendar — 等距全年日历
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      - name: Isometric full-year calendar
         uses: lowlighter/metrics@latest
         with:
-          filename: github-metrics/wakatime.svg
-          token: NOT_NEEDED
+          filename: github-metrics/isocalendar.fullyear.svg
+          token: ${{ secrets.METRICS_TOKEN }}
           base: ""
-          plugin_wakatime: yes
-          plugin_wakatime_sections: time, projects, projects-graphs, languages, languages-graphs, editors, os
-          plugin_wakatime_token: ${{ secrets.WAKATIME_API_KEY }}
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: full-year
+
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      # ⑨  Full Calendar — 完整提交日历
+      # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+      - name: Full history calendar
+        uses: lowlighter/metrics@latest
+        with:
+          filename: github-metrics/calendar.full.svg
+          token: ${{ secrets.METRICS_TOKEN }}
+          base: ""
+          plugin_calendar: yes
+          plugin_calendar_limit: 0
