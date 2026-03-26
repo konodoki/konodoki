@@ -17,7 +17,7 @@
 <!-- ══════════════════════════════════════════════════════
      ②  Habits · Activity · Achievements  三等分
 ══════════════════════════════════════════════════════ -->
-<table width="100%">
+<!-- <table width="100%">
   <tr>
     <td valign="top" width="33%">
       <img src="/github-metrics/habits.charts.svg" alt="habits" width="100%" />
@@ -29,7 +29,7 @@
       <img src="/github-metrics/achievements.svg" alt="achievements" width="100%" />
     </td>
   </tr>
-</table>
+</table> -->
 
 <!-- ══════════════════════════════════════════════════════
      ③  Contribution Snake  全宽
