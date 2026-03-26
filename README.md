@@ -1,20 +1,30 @@
-<div style="display: flex; gap: 10px; align-items: stretch; overflow: hidden;">
-  <div style="flex: 1;">
-    <img src="/github-metrics/base.svg" alt="base" 
-         style="width: 100%; height: 100%; object-fit: cover; display: block;" />
-  </div>
-
-  <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
-    <img src="/github-metrics/languages.indepth.svg" alt="languages" style="width: 100%;" />
-    <img src="/github-metrics/stackoverflow.svg" alt="stackoverflow" style="width: 100%;" />
-  </div>
-</div>
-<picture>
-  <img src="/profile-snake-contrib/github-contribution-grid-snake.svg" alt="Metrics">
-</picture>
+<!-- ── Stats & Languages ── -->
 <table>
   <tr>
-    <td><img src="/github-metrics/isocalendar.fullyear.svg" alt="isocalendar.fullyear" /></td>
-    <td><img src="/github-metrics/calendar.full.svg" alt="calendar.full" /></td>
+    <td valign="top" width="50%">
+      <img src="/github-metrics/base.svg" alt="base" width="100%" />
+    </td>
+    <td valign="top" width="50%">
+      <img src="/github-metrics/languages.indepth.svg" alt="languages" width="100%" />
+      <img src="/github-metrics/stackoverflow.svg" alt="stackoverflow" width="100%" />
+    </td>
+  </tr>
+</table>
+
+<!-- ── Contribution Snake ── -->
+<picture>
+  <img src="/profile-snake-contrib/github-contribution-grid-snake.svg"
+       alt="contribution snake" width="100%" />
+</picture>
+
+<!-- ── Calendar Overview ── -->
+<table>
+  <tr>
+    <td valign="top" width="50%">
+      <img src="/github-metrics/isocalendar.fullyear.svg" alt="isocalendar" width="100%" />
+    </td>
+    <td valign="top" width="50%">
+      <img src="/github-metrics/calendar.full.svg" alt="calendar" width="100%" />
+    </td>
   </tr>
 </table>
