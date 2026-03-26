@@ -1,14 +1,13 @@
-<table>
-  <tr>
-    <td><img src="/github-metrics/base.svg" alt="base" /></td>
-    <td>
-        <tr>
-            <img src="/github-metrics/languages.indepth.svg" alt="languages" />
-            <img src="/github-metrics/stackoverflow.svg" alt="stackoverflow" />
-        </tr>
-    </td>
-  </tr>
-</table>
+<div style="display: flex; gap: 10px; align-items: start; overflow: hidden;">
+  <div style="flex: 1;">
+    <img src="/github-metrics/base.svg" alt="base" style="width: 100%; display: block;" />
+  </div>
+
+  <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
+    <img src="/github-metrics/languages.indepth.svg" alt="languages" style="width: 100%;" />
+    <img src="/github-metrics/stackoverflow.svg" alt="stackoverflow" style="width: 100%;" />
+  </div>
+</div>
 <picture>
   <img src="/profile-snake-contrib/github-contribution-grid-snake.svg" alt="Metrics">
 </picture>
